@@ -1,9 +1,20 @@
 const express = require('express')
+const { MongoClient, ServerApiVersion } = require('mongodb');
 const app = express ()
 const fs = require('fs')
 app.set("view engine", "ejs")
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
+
+const uri = "mongodb+srv://jonathanmanhaes:Jms604071*@tp-2.dtroq.mongodb.net/?retryWrites=true&w=majority&appName=TP-2";
+const client = new MongoClient(uri, {
+serverApi: {
+version: ServerApiVersion.v1,
+strict: true,
+deprecationErrors: true,
+}
+});
+
 
 let vetorVisitas = []
 
@@ -57,7 +68,7 @@ app.post('/salvar', (req, res) => {
 
 })
 
-app.get('/mostrar', (req, res) => {
+app.get('/mostrar', (req, res) => {     
     console.log(vetorVisitas);
     res.render('mostrar', { vetorVisitas })
 })
