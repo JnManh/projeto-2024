@@ -19,6 +19,6 @@ console.log("Salvou?");
 } finally {
 await client.close(); 
 
- }
+}
 }
 run().catch(console.dir);
