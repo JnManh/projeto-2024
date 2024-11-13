@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="gpt.css" />
+    <title>Cadastro</title>
+  </head>
+
+  <body>
+    <%- include('titulo')%>
+    <div class="centro">
+      <div class="container">
+        <h1>Cadastro Roteiro</h1>
+        <form action="/cad-roteiro" method="post" class="cad">
+          <label for="titulo">Titulo:</label>
+          <input
+            name="titulo"
+            id="titulo"
+            type="text"
+            placeholder="Digite o título aqui"
+            required
+          />
+          <br /><br />
+          <label for="descricao">Descrição:</label>
+          <input
+            name="descricao"
+            id="descricao"
+            type="text"
+            placeholder="Digite a descrição"
+            required
+          />
+          <br /><br />
+          <label for="locais">Locais:</label>
+          <input
+            name="locais"
+            id="locais"
+            type="text"
+            placeholder="Digite os locais"
+            required
+          />
+          <br /><br />
+          <label for="valor">Valor:</label>
+          <input
+            name="valor"
+            id="valor"
+            type="text"
+            placeholder="Digite o valor"
+            required
+          />
+          <br /><br />
+          <% if (typeof resultado !== 'undefined' && status) { %> 
+            <p style="color: rgb(17, 255, 0)"><%= resultado %></p>
+          
+          <% } else if(typeof resultado !== 'undefined') { %>
+
+          <p style="color: rgb(128, 0, 0)"><%= resultado %></p>
+
+          <% } %>
+          <input type="submit" />
+        </form>
+        <br />
+      </div>
+    </div>
+  </body>
+</html>
