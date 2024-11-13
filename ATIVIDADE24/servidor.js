@@ -19,7 +19,7 @@ const client = new MongoClient(uri, {
 let vetorVisitas = [];
 
 app.get("/", (riquisicao, resposta) => {
-  resposta.render("index");
+  resposta.render("./index");
 });
 
 app.get("/jub", (riquisicao, resposta) => {
@@ -90,7 +90,7 @@ app.get("/roteiro", (request, response) => {
   response.render("roteiro");
 });
 
-app.post("/salvar-guia", async (req, res) => {
+app.post("/salvar", async (req, res) => {
   let nomeNoForm = req.body.nome;
   let telefoneNoForm = req.body.telefone;
   let localNoForm = req.body.local;
@@ -109,69 +109,45 @@ app.post("/salvar-guia", async (req, res) => {
   //fs.writeFileSync('visitas.json', JSON.stringify(vetorVisitas))
   try {
     await client.connect();
-    await client.db("TP-2").collection("guias").insertOne(cadastro);
+
+    await client.db("TP-2").collection("visitas").insertOne(cadastro);
+    console.log("Salvou?");
   } finally {
     await client.close();
   }
-
   res.render("cad", { resultado });
 });
 
-app.post("/salvar-visitante", async (req, res) => {
-  let nomeNoForm = req.body.nome;
-  let telefoneNoForm = req.body.telefone;
-  let localNoForm = req.body.local;
-  let diaNoForm = req.body.dia;
-
-  let cadastro = {
-    nome: nomeNoForm,
-    telefone: telefoneNoForm,
-    local: localNoForm,
-    dia: diaNoForm,
-  };
-  //fs.appendFileSync("visitas.json", `\n${JSON.stringify(cadastro)}`);
-  resultado = `Entraremos em contato para confirmar sua visita, ${nomeNoForm}.`;
-  vetorVisitas.push(cadastro);
-
-  //fs.writeFileSync('visitas.json', JSON.stringify(vetorVisitas))
-  try {
-    await client.connect();
-    await client.db("TP-2").collection("visitantes").insertOne(cadastro);
-  } finally {
-    await client.close();
-  }
-
-  res.render("cad", { resultado });
+app.get("/cad-roteiro", (request, response) => {
+  response.render("cad-roteiro", {
+    status: true,
+    resultado: "",
+  });
 });
 
-app.post("/adp", async (request, response) => {
+app.post("/cad-roteiro", async (request, response) => {
+  let titulo = request.body.titulo;
   let descricao = request.body.descricao;
   let locais = request.body.locais;
-  let cadastro = {descricao, locais};
- 
+  let valor = request.body.valor;
+  let cadastro = { titulo, descricao, locais, valor };
   try {
-    
     await client.connect();
-    await client.db("TP-2").collection("ptsturisticos").insertOne(cadastro);
-    response.render("adp",  {
-    status: true,
-    resultado: "Sucesso!",
+    await client.db("TP-2").collection("roteiro").insertOne(cadastro);
+    response.render("cad-roteiro", {
+      status: true,
+      resultado: "Roteiro cadastrado com sucesso!",
     });
-    
   } catch (e) {
-    response.render("adp", {
-    status: false,
-    resultado: "Erro ao cadastrar.",
+    response.render("cad-roteiro", {
+      status: false,
+      resultado: "Erro ao cadastrar o roteiro.",
     });
   }
 });
 
-app.get("/adp",  (request, response) => {
-  response.render("adp" ,  {
-  status: true,
-  resultado: "",
-    });
-  
+app.get("/roteiro", (request, response) => {
+  response.render("roteiro");
 });
 
 app.get("/mostrar", (req, res) => {
