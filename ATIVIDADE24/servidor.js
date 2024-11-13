@@ -59,7 +59,10 @@ app.get("/cad", (request, response) => {
 });
 
 app.get("/cad-roteiro", (request, response) => {
-  response.render("cad-roteiro");
+  response.render("cad-roteiro", {
+    status: true,
+    resultado: "",
+  });
 });
 
 app.post("/cad-roteiro", async (request, response) => {
@@ -99,16 +102,14 @@ app.post("/salvar", async (req, res) => {
     local: localNoForm,
     dia: diaNoForm,
   };
-  fs.appendFileSync("visitas.json", `\n${JSON.stringify(cadastro)}`);
+  //fs.appendFileSync("visitas.json", `\n${JSON.stringify(cadastro)}`);
   resultado = `Entraremos em contato para confirmar sua visita, ${nomeNoForm}.`;
   vetorVisitas.push(cadastro);
 
   //fs.writeFileSync('visitas.json', JSON.stringify(vetorVisitas))
   try {
     await client.connect();
-
-    await client.db("TP-2").collection("teste2").insertOne(cadastro);
-    console.log("Salvou?");
+    await client.db("TP-2").collection("visitas").insertOne(cadastro);
   } finally {
     await client.close();
   }
