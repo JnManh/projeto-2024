@@ -116,27 +116,34 @@ app.post("/salvar", async (req, res) => {
   res.render("cad", { resultado });
 });
 
-app.post("/adp", (request, response) => {
+app.post("/adp", async (request, response) => {
   let descricao = request.body.descricao;
   let locais = request.body.locais;
   let cadastro = {descricao, locais};
+ 
   try {
-    client.connect();
-    client.db("TP-2").collection("roteiro").insertOne(cadastro);
-    response.render("cad-roteiro", {
-      status: true,
-      resultado: "Roteiro cadastrado com sucesso!",
+    
+    await client.connect();
+    await client.db("TP-2").collection("ptsturisticos").insertOne(cadastro);
+    response.render("adp",  {
+    status: true,
+    resultado: "Sucesso!",
     });
+    
   } catch (e) {
-    response.render("cad-roteiro", {
-      status: false,
-      resultado: "Erro ao cadastrar o roteiro.",
+    response.render("adp", {
+    status: false,
+    resultado: "Erro ao cadastrar.",
     });
   }
 });
 
-app.get("/adp", (request, response) => {
-  response.render("adp");
+app.get("/adp",  (request, response) => {
+  response.render("adp" ,  {
+  status: true,
+  resultado: "",
+    });
+  
 });
 
 app.get("/mostrar", (req, res) => {
