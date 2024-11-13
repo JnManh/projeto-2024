@@ -59,7 +59,10 @@ app.get("/cad", (request, response) => {
 });
 
 app.get("/cad-roteiro", (request, response) => {
-  response.render("cad-roteiro");
+  response.render("cad-roteiro", {
+    status: true,
+    resultado: "",
+  });
 });
 
 app.post("/cad-roteiro", async (request, response) => {
