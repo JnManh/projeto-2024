@@ -49,14 +49,16 @@
             required
           />
           <br /><br />
-          <% if (typeof resultado !== 'undefined' && status) { %> 
+          <% if (typeof resultado !== 'undefined') {
+            if (status) { %> 
             <p style="color: rgb(17, 255, 0)"><%= resultado %></p>
           
-          <% } else if(typeof resultado !== 'undefined') { %>
+          <% } else { %>
 
           <p style="color: rgb(128, 0, 0)"><%= resultado %></p>
 
-          <% } %>
+          <% }
+           } %>
           <input type="submit" />
         </form>
         <br />

@@ -62,15 +62,15 @@ app.get("/cad-roteiro", (request, response) => {
   response.render("cad-roteiro");
 });
 
-app.post("/cad-roteiro", (request, response) => {
+app.post("/cad-roteiro", async (request, response) => {
   let titulo = request.body.titulo;
   let descricao = request.body.descricao;
   let locais = request.body.locais;
   let valor = request.body.valor;
   let cadastro = { titulo, descricao, locais, valor };
   try {
-    client.connect();
-    client.db("TP-2").collection("roteiro").insertOne(cadastro);
+    await client.connect();
+    await client.db("TP-2").collection("roteiro").insertOne(cadastro);
     response.render("cad-roteiro", {
       status: true,
       resultado: "Roteiro cadastrado com sucesso!",
