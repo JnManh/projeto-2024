@@ -119,6 +119,29 @@ app.post("/salvar", async (req, res) => {
   res.render("cad", { resultado });
 });
 
+app.post("/adp", (request, response) => {
+  let descricao = request.body.descricao;
+  let locais = request.body.locais;
+  let cadastro = {descricao, locais};
+  try {
+    client.connect();
+    client.db("TP-2").collection("roteiro").insertOne(cadastro);
+    response.render("cad-roteiro", {
+      status: true,
+      resultado: "Roteiro cadastrado com sucesso!",
+    });
+  } catch (e) {
+    response.render("cad-roteiro", {
+      status: false,
+      resultado: "Erro ao cadastrar o roteiro.",
+    });
+  }
+});
+
+app.get("/adp", (request, response) => {
+  response.render("adp");
+});
+
 app.get("/mostrar", (req, res) => {
   console.log(vetorVisitas);
   res.render("mostrar", { vetorVisitas });
