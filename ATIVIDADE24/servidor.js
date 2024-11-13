@@ -90,7 +90,7 @@ app.get("/roteiro", (request, response) => {
   response.render("roteiro");
 });
 
-app.post("/salvar", async (req, res) => {
+app.post("/salvar-guia", async (req, res) => {
   let nomeNoForm = req.body.nome;
   let telefoneNoForm = req.body.telefone;
   let localNoForm = req.body.local;
@@ -109,7 +109,34 @@ app.post("/salvar", async (req, res) => {
   //fs.writeFileSync('visitas.json', JSON.stringify(vetorVisitas))
   try {
     await client.connect();
-    await client.db("TP-2").collection("visitas").insertOne(cadastro);
+    await client.db("TP-2").collection("guias").insertOne(cadastro);
+  } finally {
+    await client.close();
+  }
+
+  res.render("cad", { resultado });
+});
+
+app.post("/salvar-visitante", async (req, res) => {
+  let nomeNoForm = req.body.nome;
+  let telefoneNoForm = req.body.telefone;
+  let localNoForm = req.body.local;
+  let diaNoForm = req.body.dia;
+
+  let cadastro = {
+    nome: nomeNoForm,
+    telefone: telefoneNoForm,
+    local: localNoForm,
+    dia: diaNoForm,
+  };
+  //fs.appendFileSync("visitas.json", `\n${JSON.stringify(cadastro)}`);
+  resultado = `Entraremos em contato para confirmar sua visita, ${nomeNoForm}.`;
+  vetorVisitas.push(cadastro);
+
+  //fs.writeFileSync('visitas.json', JSON.stringify(vetorVisitas))
+  try {
+    await client.connect();
+    await client.db("TP-2").collection("visitantes").insertOne(cadastro);
   } finally {
     await client.close();
   }
