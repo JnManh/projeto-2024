@@ -109,8 +109,11 @@ app.post("/salvar", async (req, res) => {
   //fs.writeFileSync('visitas.json', JSON.stringify(vetorVisitas))
   try {
     await client.connect();
+    const database = client.db("TP-2");
+    const collection = database.collection("visitas"); 
 
-    await client.db("TP-2").collection("visitas").insertOne(cadastro);
+    
+    await collection.insertOne(cadastro);
     console.log("Salvou?");
   } finally {
     await client.close();
