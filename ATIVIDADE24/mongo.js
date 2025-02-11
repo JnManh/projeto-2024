@@ -1,24 +1,24 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
+
 const uri = "mongodb+srv://jonathanmanhaes:Jms604071*@tp-2.dtroq.mongodb.net/?retryWrites=true&w=majority&appName=TP-2";
 
 const client = new MongoClient(uri, {
-serverApi: {
-version: ServerApiVersion.v1,
-strict: true,
-deprecationErrors: true,
-}
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
 });
 
-async function run() {
-try {
-await client.connect();
-
-let objeto = {teste: "Teste", x: 10};
-await client.db("TP-2").collection("teste2").insertOne(objeto);
-console.log("Salvou?");
-} finally {
-await client.close(); 
-
+async function connect() {
+  try {
+    await client.connect();
+    console.log("Conectado ao MongoDB!");
+    return client.db("TP-2");
+  } catch (err) {
+    console.error("Erro ao conectar ao MongoDB:", err);
+    process.exit(1);
+  }
 }
-}
-run().catch(console.dir);
+
+module.exports = { connect };

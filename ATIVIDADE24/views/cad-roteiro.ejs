@@ -13,10 +13,10 @@
       <div class="container">
         <h1>Cadastro Roteiro</h1>
         <form action="/cad-roteiro" method="post" class="cad">
-          <label for="titulo">Titulo:</label>
+          <label for="nome">Título:</label>
           <input
-            name="titulo"
-            id="titulo"
+            name="nome"
+            id="nome"
             type="text"
             placeholder="Digite o título aqui"
             required
@@ -31,35 +31,41 @@
             required
           />
           <br /><br />
-          <label for="locais">Locais:</label>
+          <label for="destino">Locais:</label>
           <input
-            name="locais"
-            id="locais"
+            name="destino"
+            id="destino"
             type="text"
             placeholder="Digite os locais"
             required
           />
           <br /><br />
-          <label for="valor">Valor:</label>
+          <label for="preco">Valor:</label>
           <input
-            name="valor"
-            id="valor"
+            name="preco"
+            id="preco"
             type="text"
             placeholder="Digite o valor"
+            required
+          />
+          <br /><br />
+          <label for="duracao">Duração:</label>
+          <input
+            name="duracao"
+            id="duracao"
+            type="text"
+            placeholder="Digite a duração (ex: 3 dias)"
             required
           />
           <br /><br />
           <% if (typeof resultado !== 'undefined') {
             if (status) { %> 
             <p style="color: rgb(17, 255, 0)"><%= resultado %></p>
-          
           <% } else { %>
-
-          <p style="color: rgb(128, 0, 0)"><%= resultado %></p>
-
+            <p style="color: rgb(128, 0, 0)"><%= resultado %></p>
           <% }
            } %>
-          <input type="submit" />
+          <input type="submit" value="Salvar" />
         </form>
         <br />
       </div>

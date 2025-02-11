@@ -1,9 +1,15 @@
 const express = require("express");
 const { MongoClient, ServerApiVersion } = require("mongodb");
-const app = express();
 const fs = require("fs");
-app.set("view engine", "ejs");
-app.use(express.static("public"));
+const roteirosRouter = require("./routes/roteiros");
+const visitasRouter = require("./routes/visitas"); 
+const visitantesRouter = require('./routes/visitantes');
+
+const app = express();
+const port = 3000;
+
+app.set("view engine", "ejs"); 
+app.use(express.static("public")); 
 app.use(express.urlencoded({ extended: true }));
 
 const uri =
@@ -16,143 +22,75 @@ const client = new MongoClient(uri, {
   },
 });
 
-let vetorVisitas = [];
+let db;
 
-app.get("/", (riquisicao, resposta) => {
-  resposta.render("./index");
-});
 
-app.get("/jub", (riquisicao, resposta) => {
-  resposta.render("jub");
-});
-
-app.get("/cas", (riquisicao, resposta) => {
-  resposta.render("cas");
-});
-
-app.get("/sob", (riquisicao, resposta) => {
-  resposta.render("sob");
-});
-
-app.get("/mac", (riquisicao, resposta) => {
-  resposta.render("mac");
-});
-
-app.get("/pont", (riquisicao, resposta) => {
-  resposta.render("pont");
-});
-
-if (fs.existsSync("visitas.json")) {
-  const dados = fs.readFileSync("visitas.json", "utf-8");
-  console.log(vetorVisitas);
-  vetorVisitas = JSON.parse(dados);
+async function connectToMongoDB() {
+  try {
+    await client.connect();
+    db = client.db("TP-2"); 
+    console.log("Conectado ao MongoDB!");
+  } catch (err) {
+    console.error("Erro ao conectar ao MongoDB:", err);
+    process.exit(1); 
+  }
 }
 
-app.get("/cadvisi", (request, response) => {
-  resultado = "";
-  response.render("cadvisi", { resultado });
+app.use((req, res, next) => {
+  req.db = db; 
+  next();
 });
 
-app.get("/cad", (request, response) => {
-  resultado = "";
-  response.render("cad", { resultado });
+app.get("/", (req, res) => {
+  res.render("index");
 });
 
-app.get("/cad-roteiro", (request, response) => {
-  response.render("cad-roteiro", {
-    status: true,
-    resultado: "",
-  });
+app.get("/jub", (req, res) => {
+  res.render("jub");
 });
 
-app.post("/cad-roteiro", async (request, response) => {
-  let titulo = request.body.titulo;
-  let descricao = request.body.descricao;
-  let locais = request.body.locais;
-  let valor = request.body.valor;
-  let cadastro = { titulo, descricao, locais, valor };
-  try {
-    await client.connect();
-    await client.db("TP-2").collection("roteiro").insertOne(cadastro);
-    response.render("cad-roteiro", {
-      status: true,
-      resultado: "Roteiro cadastrado com sucesso!",
-    });
-  } catch (e) {
-    response.render("cad-roteiro", {
-      status: false,
-      resultado: "Erro ao cadastrar o roteiro.",
-    });
-  }
+app.get("/cas", (req, res) => {
+  res.render("cas");
 });
 
-app.get("/roteiro", (request, response) => {
-  response.render("roteiro");
+app.get("/sob", (req, res) => {
+  res.render("sob");
 });
 
-app.post("/salvar", async (req, res) => {
-  let nomeNoForm = req.body.nome;
-  let telefoneNoForm = req.body.telefone;
-  let localNoForm = req.body.local;
-  let diaNoForm = req.body.dia;
-
-  let cadastro = {
-    nome: nomeNoForm,
-    telefone: telefoneNoForm,
-    local: localNoForm,
-    dia: diaNoForm,
-  };
-  //fs.appendFileSync("visitas.json", `\n${JSON.stringify(cadastro)}`);
-  resultado = `Entraremos em contato para confirmar sua visita, ${nomeNoForm}.`;
-  vetorVisitas.push(cadastro);
-
-  //fs.writeFileSync('visitas.json', JSON.stringify(vetorVisitas))
-  try {
-    await client.connect();
-
-    await client.db("TP-2").collection("visitas").insertOne(cadastro);
-    console.log("Salvou?");
-  } finally {
-    await client.close();
-  }
-  res.render("cad", { resultado });
+app.get("/mac", (req, res) => {
+  res.render("mac");
 });
 
-app.get("/cad-roteiro", (request, response) => {
-  response.render("cad-roteiro", {
-    status: true,
-    resultado: "",
-  });
+app.get("/pont", (req, res) => {
+  res.render("pont");
 });
 
-app.post("/cad-roteiro", async (request, response) => {
-  let titulo = request.body.titulo;
-  let descricao = request.body.descricao;
-  let locais = request.body.locais;
-  let valor = request.body.valor;
-  let cadastro = { titulo, descricao, locais, valor };
-  try {
-    await client.connect();
-    await client.db("TP-2").collection("roteiro").insertOne(cadastro);
-    response.render("cad-roteiro", {
-      status: true,
-      resultado: "Roteiro cadastrado com sucesso!",
-    });
-  } catch (e) {
-    response.render("cad-roteiro", {
-      status: false,
-      resultado: "Erro ao cadastrar o roteiro.",
-    });
-  }
-});
-
-app.get("/roteiro", (request, response) => {
-  response.render("roteiro");
+app.get("/roteiro", (req, res) => {
+  res.render("roteiro");
 });
 
 app.get("/mostrar", (req, res) => {
-  console.log(vetorVisitas);
+  let vetorVisitas = [];
+  if (fs.existsSync("visitas.json")) {
+    const dados = fs.readFileSync("visitas.json", "utf-8");
+    vetorVisitas = JSON.parse(dados);
+  }
   res.render("mostrar", { vetorVisitas });
 });
 
-app.listen(3000);
+
+app.use("/", roteirosRouter);
+app.use("/", visitasRouter);
+app.use('/', visitantesRouter);
+
+
+async function startServer() {
+  await connectToMongoDB(); 
+  app.listen(port, () => {
+    console.log(`Servidor rodando em http://localhost:${port}`);
+  });
+}
+
+startServer().catch((err) => {
+  console.error("Erro ao iniciar o servidor:", err);
+});
