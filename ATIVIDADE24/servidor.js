@@ -41,16 +41,32 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", (req, res) => {
-  res.render("index");
-});
+app.post("/salvar", async (req, res) => {
+  let nomeNoForm = req.body.nome;
+  let telefoneNoForm = req.body.telefone;
+  let localNoForm = req.body.local;
+  let diaNoForm = req.body.dia;
 
-app.get("/jub", (req, res) => {
-  res.render("jub");
-});
+  let cadastro = {
+    nome: nomeNoForm,
+    telefone: telefoneNoForm,
+    local: localNoForm,
+    dia: diaNoForm,
+  };
+  //fs.appendFileSync("visitas.json", `\n${JSON.stringify(cadastro)}`);
+  resultado = `Entraremos em contato para confirmar sua visita, ${nomeNoForm}.`;
+  vetorVisitas.push(cadastro);
 
-app.get("/cas", (req, res) => {
-  res.render("cas");
+  //fs.writeFileSync('visitas.json', JSON.stringify(vetorVisitas))
+  try {
+    await client.connect();
+
+    await client.db("TP-2").collection("visitas").insertOne(cadastro);
+    console.log("Salvou?");
+  } finally {
+    await client.close();
+  }
+  res.render("cad", { resultado });
 });
 
 app.get("/sob", (req, res) => {
