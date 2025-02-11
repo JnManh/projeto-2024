@@ -1,9 +1,8 @@
 const express = require("express");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const fs = require("fs");
-const roteirosRouter = require("./routes/roteiros");
-const visitasRouter = require("./routes/visitas"); 
-const visitantesRouter = require('./routes/visitantes');
+const roteirosRouter = require("./rotas/roteiro");
+const visitasRouter = require("./rotas/visitas"); 
 
 const app = express();
 const port = 3000;
@@ -53,20 +52,19 @@ app.post("/salvar", async (req, res) => {
     local: localNoForm,
     dia: diaNoForm,
   };
-  //fs.appendFileSync("visitas.json", `\n${JSON.stringify(cadastro)}`);
-  resultado = `Entraremos em contato para confirmar sua visita, ${nomeNoForm}.`;
-  vetorVisitas.push(cadastro);
 
-  //fs.writeFileSync('visitas.json', JSON.stringify(vetorVisitas))
   try {
-    await client.connect();
-
-    await client.db("TP-2").collection("visitas").insertOne(cadastro);
-    console.log("Salvou?");
-  } finally {
-    await client.close();
+    await req.db.collection("visitas").insertOne(cadastro);
+    console.log("Dados salvos!");
+    res.render("cad", { 
+      resultado: `Entraremos em contato para confirmar sua visita, ${nomeNoForm}.` 
+    });
+  } catch (err) {
+    console.error("Erro ao salvar:", err);
+    res.render("cad", { 
+      resultado: "Erro ao processar o cadastro. Tente novamente." 
+    });
   }
-  res.render("cad", { resultado });
 });
 
 app.get("/sob", (req, res) => {
@@ -85,19 +83,20 @@ app.get("/roteiro", (req, res) => {
   res.render("roteiro");
 });
 
-app.get("/mostrar", (req, res) => {
-  let vetorVisitas = [];
-  if (fs.existsSync("visitas.json")) {
-    const dados = fs.readFileSync("visitas.json", "utf-8");
-    vetorVisitas = JSON.parse(dados);
+app.get("/mostrar", async (req, res) => {
+  try {
+    const visitas = await req.db.collection("visitas").find().toArray();
+    res.render("mostrar", { visitas });
+  } catch (err) {
+    console.error("Erro ao buscar visitas:", err);
+    res.status(500).send("Erro ao carregar dados");
   }
-  res.render("mostrar", { vetorVisitas });
 });
 
 
 app.use("/", roteirosRouter);
 app.use("/", visitasRouter);
-app.use('/', visitantesRouter);
+
 
 
 async function startServer() {

@@ -6,16 +6,19 @@ body {
 }
 
 h1 {
-    color: #000;
+     color: #2D3142;
     font-family: Inter;
     font-size: 30px;
-    font-weight: 200;   
+    font-weight: 600;
+    line-height: 1.2;   
 }
 
 ul a {
-    background-color: #3DA5BA;
+    background-color: #FFD166;
+    color: #1A1A1A;
     font-size: 25px;
-    font-weight: bold; 
+    font-weight: 600; 
+    line-height: 1.2;
     text-decoration: none;
     color: #000;
 }
@@ -26,8 +29,9 @@ ul a {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 50vh;
-    width: 40%;
+    min-height: 50vh;
+    width: min(90%, 600px);
+    margin: 2rem auto;
     border-radius: 20px;
 }
 
@@ -91,10 +95,17 @@ nav a {
     width: 200px;
     background-color: #c2eef8;
     font-size: 20px;
+    transition: transform 0.3s ease;
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
 }
 
 .titulo a:hover {
     box-shadow: inset 0px 0px 24px 0px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+    opacity: 0.9;
 }
 
 .rodape {
@@ -123,7 +134,8 @@ nav a {
     background-color: #fff;
     padding: 0 20px;
     height: 400px;
-    float: left;
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     margin-top: 150px;
     margin-left: 200px;
     border-radius: 30px;
@@ -201,25 +213,28 @@ img {
 
 @media only screen and (max-width: 1024px) {
     [class*="tet"] {
-        width: 58%;
+        width: 95% !important;
         margin-left: 190px;
         margin-top: 5%;
+        margin: 1rem auto !important;
     }
 }
 
 @media only screen and (max-width: 1024px) {
     img {
         margin-top: 10%;
-        margin-left: 190px;
-        width: 61%;
+        margin-left: 5%;
+        margin: 1rem auto !important;
+        width: 95% !important;
     }
 }
 
 @media only screen and (max-width: 1024px) {
     [class*="rodape"] {
-        width: 100%;
+        width: 95% !important;
         height: 90px;   
         margin-top: 625px;
+        margin: 1rem auto !important;
     } 
 }
 

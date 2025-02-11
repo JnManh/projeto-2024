@@ -1,8 +1,7 @@
 const express = require("express");
 const { MongoClient, ServerApiVersion } = require("mongodb");
-const roteirosRouter = require("./routes/roteiros");
-const visitasRouter = require("./routes/visitas");
-const visitantesRouter = require("./routes/visitantes");
+const roteirosRouter = require("./rotas/roteiro");
+const visitasRouter = require("./rotas/visitas");
 
 const app = express();
 const port = 3000;
@@ -33,13 +32,12 @@ async function connectToMongoDB() {
   }
 }
 
-// Middleware para adicionar o banco de dados às requisições
+
 app.use((req, res, next) => {
   req.db = db;
   next();
 });
 
-// Rota para salvar visita
 app.post("/salvar", async (req, res) => {
   let { nome, telefone, local, dia } = req.body;
 
@@ -57,7 +55,6 @@ app.post("/salvar", async (req, res) => {
   res.render("cad", { resultado });
 });
 
-// Rota para exibir visitas salvas
 app.get("/mostrar", async (req, res) => {
   try {
     const vetorVisitas = await req.db.collection("visitas").find().toArray();
@@ -68,18 +65,16 @@ app.get("/mostrar", async (req, res) => {
   }
 });
 
-// Outras rotas
+
 app.get("/sob", (req, res) => res.render("sob"));
 app.get("/mac", (req, res) => res.render("mac"));
 app.get("/pont", (req, res) => res.render("pont"));
 app.get("/roteiro", (req, res) => res.render("roteiro"));
 
-// Rotas externas
+
 app.use("/", roteirosRouter);
 app.use("/", visitasRouter);
-app.use("/", visitantesRouter);
 
-// Iniciar o servidor
 async function startServer() {
   await connectToMongoDB();
   app.listen(port, () => {

@@ -1,5 +1,5 @@
 const express = require('express');
-const { salvarPacote, listarPacotes } = require('../models/Pacote');
+const { salvarPacote, listarPacotes } = require('../modelos/Pacote');
 
 const router = express.Router();
 
@@ -10,12 +10,11 @@ router.get('/cad-roteiro', (req, res) => {
 
 router.post('/cad-roteiro', async (req, res) => {
   try {
-    const { nome, destino, descricao, preco, duracao } = req.body;
-
-    const novoPacote = { nome, destino, descricao, preco: Number(preco), duracao };
-    await salvarPacote(novoPacote);
-
-    res.redirect('/');
+    const preco = parseFloat(req.body.preco.replace(',', '.')); 
+    const novoPacote = { 
+      ...req.body,
+      preco 
+    };
   } catch (err) {
     console.error('Erro ao salvar o pacote:', err);
     res.status(500).send('Erro ao salvar o pacote.');
