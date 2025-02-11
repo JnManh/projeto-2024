@@ -1,0 +1,166 @@
+[33mcommit 6efc482e039eb54419069b4ce3c85694d5a42303[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: AnginInfo <angelofreits@gmail.com>
+Date:   Mon Feb 10 22:51:27 2025 -0300
+
+    sla
+
+[33mcommit bca34aa2f64ae0b4638f9d45e7bc268ecdab4181[m
+Author: AnginInfo <angelofreits@gmail.com>
+Date:   Mon Feb 10 22:42:47 2025 -0300
+
+    dificil
+
+[33mcommit f04582826c473e9165e188f25906e91f58349e16[m
+Author: AnginInfo <angelofreits@gmail.com>
+Date:   Mon Feb 10 22:41:58 2025 -0300
+
+    dificil
+
+[33mcommit 53606b4806574d9e7dc9f2079dc2bcc0442fcf76[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: MariaDChagas <143622576+MariaDChagas@users.noreply.github.com>
+Date:   Wed Nov 13 16:55:19 2024 -0300
+
+    Finalizando
+
+[33mcommit 905b4aa278ea109e7311ab941a760da76195a659[m
+Merge: 31bef74 9a72b46
+Author: MariaDChagas <143622576+MariaDChagas@users.noreply.github.com>
+Date:   Wed Nov 13 15:06:29 2024 -0300
+
+    Merge branch 'main' of https://github.com/E25llin/projeto-2024
+
+[33mcommit 31bef74ae25219dd408d9e6571d2007a574cd800[m
+Author: MariaDChagas <143622576+MariaDChagas@users.noreply.github.com>
+Date:   Wed Nov 13 15:06:19 2024 -0300
+
+    Correção visitantes separado dos guias
+
+[33mcommit 9a72b46296b6a81d24900270d1308769fc12ab72[m
+Merge: 66aed37 3eee339
+Author: E25llin <143622878+E25llin@users.noreply.github.com>
+Date:   Wed Nov 13 15:05:28 2024 -0300
+
+    Merge branch 'main' of https://github.com/E25llin/projeto-2024
+
+[33mcommit 66aed37c0c8d575a0ef01b4033be2bd013067563[m
+Author: E25llin <143622878+E25llin@users.noreply.github.com>
+Date:   Wed Nov 13 15:05:26 2024 -0300
+
+    12
+
+[33mcommit 3eee3396f0b0d669980fae72457040b1a36a23eb[m
+Author: MariaDChagas <143622576+MariaDChagas@users.noreply.github.com>
+Date:   Wed Nov 13 14:56:21 2024 -0300
+
+    Correção pra salvar visitas no BD
+
+[33mcommit 52707dbd79955de2bcb456ca2e95d07f1da4b2c4[m
+Merge: e1b1a60 2226b89
+Author: juumachado <143622832+juumachado@users.noreply.github.com>
+Date:   Wed Nov 13 14:43:17 2024 -0300
+
+    Merge branch 'main' of https://github.com/E25llin/projeto-2024
+
+[33mcommit e1b1a6039d41ec21d5508fccc9424774e846b54a[m
+Author: juumachado <143622832+juumachado@users.noreply.github.com>
+Date:   Wed Nov 13 14:43:11 2024 -0300
+
+    Correção pra parar de dar erro do status undefined
+
+[33mcommit 2226b89bd6824b91f923355213f12180c6507fc8[m
+Author: E25llin <143622878+E25llin@users.noreply.github.com>
+Date:   Wed Nov 13 14:41:31 2024 -0300
+
+    13
+
+[33mcommit 3a865b9edf54a1ec44856032401a7d35c3d55aad[m
+Merge: af507cc 218e3cb
+Author: E25llin <143622878+E25llin@users.noreply.github.com>
+Date:   Wed Nov 13 14:39:47 2024 -0300
+
+    13
+
+[33mcommit af507cc5f50e4414b190fb4431b7027c83486192[m
+Author: E25llin <143622878+E25llin@users.noreply.github.com>
+Date:   Wed Nov 13 14:37:53 2024 -0300
+
+    13/11
+
+[33mcommit 218e3cb6ad3f6aca435a058529b07ae75c2b4ccb[m
+Author: MariaDChagas <143622576+MariaDChagas@users.noreply.github.com>
+Date:   Wed Nov 13 13:58:34 2024 -0300
+
+    hey
+
+[33mcommit 9871bd512305146af53ea7913b20ce1a67150d8c[m
+Author: juumachado <143622832+juumachado@users.noreply.github.com>
+Date:   Tue Nov 12 22:10:35 2024 -0300
+
+    .
+
+[33mcommit f9afccf93e60864dd78e98ca826a1b4e1540202f[m
+Author: MariaDChagas <143622576+MariaDChagas@users.noreply.github.com>
+Date:   Wed Nov 6 15:04:40 2024 -0300
+
+    Delete ATIVIDADE24/views/cadguia.ejs
+
+[33mcommit d24a87a3a885ec084817defc7f06151ebc9bd6d2[m
+Author: MariaDChagas <143622576+MariaDChagas@users.noreply.github.com>
+Date:   Wed Nov 6 15:04:05 2024 -0300
+
+    Delete ATIVIDADE24/at24.js
+
+[33mcommit cb4893c68e6a52807c176e19a6042af6fef13e3e[m
+Author: MariaDChagas <143622576+MariaDChagas@users.noreply.github.com>
+Date:   Wed Nov 6 15:03:04 2024 -0300
+
+    Add files via upload
+
+[33mcommit 686a338b7e422d0a3cd0f69b1e5f190e517df461[m
+Author: MariaDChagas <143622576+MariaDChagas@users.noreply.github.com>
+Date:   Wed Nov 6 15:02:37 2024 -0300
+
+    Add files via upload
+
+[33mcommit c010556e56dcc6e49fe499223a158ac0fddfa161[m
+Merge: af17b06 525890f
+Author: E25llin <143622878+E25llin@users.noreply.github.com>
+Date:   Wed Oct 30 15:03:17 2024 -0300
+
+    30/10
+
+[33mcommit af17b06b8460df6d9243eb2cb06c3afa0f1c1cf3[m
+Author: E25llin <143622878+E25llin@users.noreply.github.com>
+Date:   Wed Oct 30 15:00:35 2024 -0300
+
+    30/10
+
+[33mcommit bb064e10e162e028799b1349651a019bb5597e13[m
+Author: E25llin <143622878+E25llin@users.noreply.github.com>
+Date:   Wed Oct 30 14:59:06 2024 -0300
+
+    30/10
+
+[33mcommit 525890f272d7e2c76a02e766963e7b75c24a1b1b[m
+Author: sushislow <143622576+MariaDChagas@users.noreply.github.com>
+Date:   Wed Oct 30 14:53:46 2024 -0300
+
+    hoje
+
+[33mcommit 30854386084ed90f9c7bc46a41ac86285c5c2b64[m
+Author: E25llin <143622878+E25llin@users.noreply.github.com>
+Date:   Wed Sep 11 11:39:03 2024 -0300
+
+    Add files via upload
+
+[33mcommit bf5a53e950459348a6d50f83d990ed50a9623173[m
+Author: E25llin <143622878+E25llin@users.noreply.github.com>
+Date:   Wed Sep 11 11:38:24 2024 -0300
+
+    Add files via upload
+
+[33mcommit 6a24179eb79f3905bc71419f2baeaf52c540cdb4[m
+Author: E25llin <143622878+E25llin@users.noreply.github.com>
+Date:   Wed Sep 11 11:37:03 2024 -0300
+
+    Initial commit
