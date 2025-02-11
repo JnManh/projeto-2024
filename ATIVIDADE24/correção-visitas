@@ -1,0 +1,92 @@
+const express = require("express");
+const { MongoClient, ServerApiVersion } = require("mongodb");
+const roteirosRouter = require("./routes/roteiros");
+const visitasRouter = require("./routes/visitas");
+const visitantesRouter = require("./routes/visitantes");
+
+const app = express();
+const port = 3000;
+
+app.set("view engine", "ejs");
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
+
+const uri = "mongodb+srv://jonathanmanhaes:Jms604071*@tp-2.dtroq.mongodb.net/?retryWrites=true&w=majority&appName=TP-2";
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
+
+let db;
+
+async function connectToMongoDB() {
+  try {
+    await client.connect();
+    db = client.db("TP-2");
+    console.log("Conectado ao MongoDB!");
+  } catch (err) {
+    console.error("Erro ao conectar ao MongoDB:", err);
+    process.exit(1);
+  }
+}
+
+// Middleware para adicionar o banco de dados às requisições
+app.use((req, res, next) => {
+  req.db = db;
+  next();
+});
+
+// Rota para salvar visita
+app.post("/salvar", async (req, res) => {
+  let { nome, telefone, local, dia } = req.body;
+
+  let cadastro = { nome, telefone, local, dia };
+
+  try {
+    await req.db.collection("visitas").insertOne(cadastro);
+    console.log("Cadastro salvo no MongoDB.");
+    resultado = 'Entraremos em contato para confirmar sua visita, ${nome}.';
+  } catch (err) {
+    console.error("Erro ao salvar no MongoDB:", err);
+    resultado = "Erro ao salvar sua visita. Tente novamente.";
+  }
+
+  res.render("cad", { resultado });
+});
+
+// Rota para exibir visitas salvas
+app.get("/mostrar", async (req, res) => {
+  try {
+    const vetorVisitas = await req.db.collection("visitas").find().toArray();
+    res.render("mostrar", { vetorVisitas });
+  } catch (err) {
+    console.error("Erro ao buscar visitas:", err);
+    res.render("mostrar", { vetorVisitas: [] });
+  }
+});
+
+// Outras rotas
+app.get("/sob", (req, res) => res.render("sob"));
+app.get("/mac", (req, res) => res.render("mac"));
+app.get("/pont", (req, res) => res.render("pont"));
+app.get("/roteiro", (req, res) => res.render("roteiro"));
+
+// Rotas externas
+app.use("/", roteirosRouter);
+app.use("/", visitasRouter);
+app.use("/", visitantesRouter);
+
+// Iniciar o servidor
+async function startServer() {
+  await connectToMongoDB();
+  app.listen(port, () => {
+    console.log('Servidor rodando em http://localhost:${port}');
+  });
+}
+
+startServer().catch((err) => {
+  console.error("Erro ao iniciar o servidor:", err);
+});
