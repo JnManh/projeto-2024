@@ -44,7 +44,11 @@ app.get("/", (req, res) => {
   res.render("index")
 })
 
-app.post("/salvar", async (req, res) => {
+app.get("/cadastroVisitante", (req, res) => {
+  res.render("cadastroVisitante", {resultado: ""})
+})
+
+app.post("/salvar-visitante", async (req, res) => {
   let nomeNoForm = req.body.nome;
   let telefoneNoForm = req.body.telefone;
   let localNoForm = req.body.local;
@@ -128,8 +132,8 @@ app.get("/mostrar", async (req, res) => {
 });
 
 
-app.use("/roteiros", roteirosRouter);
-app.use("/visitas", visitasRouter);
+app.use(roteirosRouter);
+app.use(visitasRouter);
 
 
 
