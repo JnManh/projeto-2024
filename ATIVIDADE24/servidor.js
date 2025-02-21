@@ -125,7 +125,7 @@ app.get("/mostrar", async (req, res) => {
 
 
 app.use("/roteiro", roteirosRouter);
-app.use("/visita", visitasRouter);
+app.use("/visitas", visitasRouter);
 
 
 
