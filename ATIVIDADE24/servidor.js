@@ -40,6 +40,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get("/", (req, res) => {
+  res.render("index")
+})
+
 app.post("/salvar", async (req, res) => {
   let nomeNoForm = req.body.nome;
   let telefoneNoForm = req.body.telefone;
@@ -94,8 +98,8 @@ app.get("/mostrar", async (req, res) => {
 });
 
 
-app.use("/", roteirosRouter);
-app.use("/", visitasRouter);
+app.use("/roteiros", roteirosRouter);
+app.use("/visitas", visitasRouter);
 
 
 

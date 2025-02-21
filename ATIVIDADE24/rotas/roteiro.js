@@ -22,7 +22,7 @@ router.post('/cad-roteiro', async (req, res) => {
 });
 
 
-router.get('/', async (req, res) => {
+router.get('/roteiros', async (req, res) => {
   try {
     const pacotes = await listarPacotes();
     res.render('roteiro', { pacotes });
