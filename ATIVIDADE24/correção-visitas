@@ -26,8 +26,8 @@ async function connectToMongoDB() {
     await client.connect();
     db = client.db("TP-2");
     console.log("Conectado ao MongoDB!");
-  } catch (err) {
-    console.error("Erro ao conectar ao MongoDB:", err);
+  } catch (erro) {
+    console.error("Erro ao conectar ao MongoDB:", erro);
     process.exit(1);
   }
 }
@@ -47,8 +47,8 @@ app.post("/salvar", async (req, res) => {
     await req.db.collection("visitas").insertOne(cadastro);
     console.log("Cadastro salvo no MongoDB.");
     resultado = 'Entraremos em contato para confirmar sua visita, ${nome}.';
-  } catch (err) {
-    console.error("Erro ao salvar no MongoDB:", err);
+  } catch (erro) {
+    console.error("Erro ao salvar no MongoDB:", erro);
     resultado = "Erro ao salvar sua visita. Tente novamente.";
   }
 
@@ -59,8 +59,8 @@ app.get("/mostrar", async (req, res) => {
   try {
     const vetorVisitas = await req.db.collection("visitas").find().toArray();
     res.render("mostrar", { vetorVisitas });
-  } catch (err) {
-    console.error("Erro ao buscar visitas:", err);
+  } catch (erro) {
+    console.error("Erro ao buscar visitas:", erro);
     res.render("mostrar", { vetorVisitas: [] });
   }
 });
@@ -82,6 +82,6 @@ async function startServer() {
   });
 }
 
-startServer().catch((err) => {
-  console.error("Erro ao iniciar o servidor:", err);
+startServer().catch((erro) => {
+  console.error("Erro ao iniciar o servidor:", erro);
 });
