@@ -131,11 +131,8 @@ app.get("/mostrar", async (req, res) => {
   }
 });
 
-
 app.use(roteirosRouter);
 app.use(visitasRouter);
-
-
 
 async function startServer() {
   await connectToMongoDB(); 
