@@ -44,11 +44,11 @@ app.get("/", (req, res) => {
   res.render("index")
 })
 
-app.get("/cadastroVisitante", (req, res) => {
-  res.render("cadastroVisitante", {resultado: ""})
+app.get("/cadastroVisita", (req, res) => {
+  res.render("cadastroVisita", {resultado: ""})
 })
 
-app.post("/salvar-visitante", async (req, res) => {
+app.post("/salvar-visita", async (req, res) => {
   let nomeNoForm = req.body.nome;
   let telefoneNoForm = req.body.telefone;
   let localNoForm = req.body.local;
