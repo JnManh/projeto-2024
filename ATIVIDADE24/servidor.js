@@ -52,6 +52,10 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/adp", (req, res) => {
+  res.render("adp");
+});
+
 app.get("/cadastroVisita", (req, res) => {
   res.render("cadastroVisita", { resultado: "" });
 });
