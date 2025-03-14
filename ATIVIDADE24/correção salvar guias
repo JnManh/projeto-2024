@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="gpt.css">
+    <title>Cadastro de Guias Turísticas</title>
+  </head>
+
+  <body>
+    <%- include('titulo') %>
+    <div class="centro">
+      <div class="container">
+        <h1>Cadastro de Guia Turística</h1>
+        <form action="/salvar-guia" method="post" class="cad">
+          <!-- Nome da Guia -->
+          <label for="nome">Nome da Guia Turística:</label>
+          <input name="nome" id="nome" type="text" placeholder="Digite o nome da guia" required>
+          <br><br>
+
+          <!-- Descrição da Guia -->
+          <label for="descricao">Descrição da Guia:</label>
+          <textarea name="descricao" id="descricao" placeholder="Digite a descrição da guia aqui" required></textarea>
+          <br><br>
+
+          <!-- Data de Disponibilidade -->
+          <label for="data_disponibilidade">Data de Disponibilidade:</label>
+          <input name="data_disponibilidade" id="data_disponibilidade" type="date" required>
+          <br><br>
+
+          <!-- Local de Operação -->
+          <label for="local">Local de Operação:</label>
+          <input name="local" id="local" type="text" placeholder="Digite o local de operação" required>
+          <br><br>
+
+          <!-- Preço -->
+          <label for="preco">Preço por Pessoa:</label>
+          <input name="preco" id="preco" type="number" step="0.01" placeholder="Digite o preço por pessoa" required>
+          <br><br>
+
+          <!-- Botão de Envio -->
+          <input type="submit" id="1a20" value="Cadastrar Guia">
+        </form>
+        <br>
+        <h1 id="texto"><%= resultado %></h1>
+      </div>
+    </div>
+  </body>
+</html>

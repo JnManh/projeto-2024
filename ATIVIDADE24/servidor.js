@@ -43,6 +43,46 @@ app.use(async (req, res, next) => {
   }
 });
 
+app.use((req, res, next) => {
+  req.db = db; 
+  next();
+});
+
+app.get("/", (req, res) => {
+  res.render("index");
+});
+
+app.get("/cadastroVisita", (req, res) => {
+  res.render("cadastroVisita", { resultado: "" });
+});
+
+app.post("/salvar-visita", async (req, res) => {
+  let nomeNoForm = req.body.nome;
+  let telefoneNoForm = req.body.telefone;
+  let localNoForm = req.body.local;
+  let diaNoForm = req.body.dia;
+
+  let cadastro = {
+    nome: nomeNoForm,
+    telefone: telefoneNoForm,
+    local: localNoForm,
+    dia: diaNoForm,
+  };
+
+  try {
+    await req.db.collection("visitas").insertOne(cadastro);
+    console.log("Dados salvos!");
+    res.render("cad", { 
+      resultado: `Entraremos em contato para confirmar sua visita, ${nomeNoForm}.` 
+    });
+  } catch (err) {
+    console.error("Erro ao salvar:", err);
+    res.render("cad", { 
+      resultado: "Erro ao processar o cadastro. Tente novamente." 
+    });
+  }
+});
+
 app.get('/pont', (req, res) => res.render('pont'));
 app.get('/cad', (req, res) => {
   res.render('cad', {
@@ -63,8 +103,6 @@ app.get('/jub', (req, res) => res.render('jub'));
 app.get('/mac', (req, res) => res.render('mac'));
 app.get('/cas', (req, res) => res.render('cas'));
 app.get('/sob', (req, res) => res.render('sob'));
-
-
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(roteirosRouter);
