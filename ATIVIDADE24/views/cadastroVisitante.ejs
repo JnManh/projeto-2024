@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,21 +11,43 @@
   <%- include('titulo')%>
   <div class="centro">
     <div class="container">
-      <h1>Cadastro</h1>
+      <h1>Cadastro de Visitantes</h1>
       <form action="/salvar-visitante" method="post" class="cad">
-        <label for="nome">Digite seu nome:</label>
-        <input name="nome" id="nome" type="text" placeholder="Digite o seu nome aqui" required>
-        <br><br>
-        <label for="telefone">Digite seu telefone:</label>
-        <input name="telefone" id="telefone" type="text" placeholder="Digite o seu telefone aqui" required>
-        <br><br>
-        <label for="em">Digite seu email:</label>
-        <input name="em" id="em" type="text" placeholder="Digite o seu email aqui" required>
-        <br><br>
-        <input type="submit" id="1a20">
+        <div class="form-group">
+          <label for="nome">Nome Completo:</label>
+          <input name="nome" id="nome" type="text" 
+                 placeholder="Digite o seu nome aqui" required
+                 value="<%= valores.nome || '' %>">
+        </div>
+        <div class="form-group">
+          <label for="telefone">Telefone:</label>
+          <input name="telefone" id="telefone" type="text" 
+                 placeholder="Digite o seu telefone aqui" required
+                 value="<%= valores.telefone || '' %>">
+        </div>
+        <div class="form-group">
+          <label for="email">E-mail:</label>
+
+          <input name="email" id="email" type="email"
+                 placeholder="exemplo@email.com" required
+                 value="<%= valores.email || '' %>">
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Cadastrar" class="btn">
+        </div>
+        <% if (resultado) { %>
+          <div class="alert alert-<%= resultado.tipo %>">
+            <%= resultado.mensagem %>
+            <% if (resultado.erros) { %>
+              <ul>
+                <% resultado.erros.forEach(erro => { %>
+                  <li><%= erro.msg %></li>
+                <% }) %>
+              </ul>
+            <% } %>
+          </div>
+        <% } %>
       </form>
-      <br>
-      <h1 id="texto"><%=resultado%></h1>
     </div>
   </div>
 </body>

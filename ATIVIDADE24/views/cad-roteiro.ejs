@@ -7,7 +7,7 @@
     <title>Cadastro</title>
   </head>
 
-  <body>
+  <body> 
     <%- include('titulo')%>
     <div class="centro">
       <div class="container">
@@ -58,13 +58,20 @@
             required
           />
           <br /><br />
-          <% if (typeof resultado !== 'undefined') {
-            if (status) { %> 
-            <p style="color: rgb(17, 255, 0)"><%= resultado %></p>
-          <% } else { %>
-            <p style="color: rgb(128, 0, 0)"><%= resultado %></p>
-          <% }
-           } %>
+          <% if (resultado && resultado.type) { %>
+            <% if (resultado.type === 'success') { %>
+              <p style="color: #28a745"><%= resultado.message %></p>
+            <% } else { %>
+              <p style="color: #dc3545"><%= resultado.message %></p>
+              <% if (resultado.details) { %>
+                <ul>
+                  <% resultado.details.forEach(error => { %>
+                    <li><%= error.msg %></li>
+                  <% }) %>
+                </ul>
+              <% } %>
+            <% } %>
+          <% } %>
           <input type="submit" value="Salvar" />
         </form>
         <br />
