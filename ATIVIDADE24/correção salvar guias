@@ -28,6 +28,41 @@
           <input name="data_disponibilidade" id="data_disponibilidade" type="date" required>
           <br><br>
 
+
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="gpt.css">
+    <title>Cadastro de Guias</title>
+</head>
+<body>
+    <h1>Cadastro de Guia</h1>
+    <form action="/salvar-guia" method="post">
+        <label>Nome:</label>
+        <input name="nome" type="text" required>
+        
+        <label>Descrição:</label>
+        <textarea name="descricao" required></textarea>
+        
+        <label>Data:</label>
+        <input name="data_disponibilidade" type="date" required>
+        
+        <label>Local:</label>
+        <input name="local" type="text" required>
+        
+        <label>Preço:</label>
+        <input name="preco" type="number" step="0.01" required>
+        
+        <button type="submit">Cadastrar</button>
+    </form>
+    <h1><%= resultado %></h1>
+</body>
+</html>
+
           <!-- Local de Operação -->
           <label for="local">Local de Operação:</label>
           <input name="local" id="local" type="text" placeholder="Digite o local de operação" required>
@@ -47,3 +82,6 @@
     </div>
   </body>
 </html>
+
+
+
